@@ -1,14 +1,16 @@
 import React from 'react';
 import Accounts from './Accounts';
 import Devices from './Devices';
+import Home from './Home';
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+import { Switch } from 'react-router';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
 
 const styles = {
   root: {
@@ -24,7 +26,7 @@ const styles = {
   menuLink: {
     textDecoration: 'none',
     color: 'white',
-    paddingRight: '10px'
+    paddingRight: '25px'
   },
   active: {
     color: 'red'
@@ -40,16 +42,20 @@ function Header(props) {
         <AppBar position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
+            <NavLink to="/" activeClassName="active-home" className={classes.menuLink}><HomeIcon /></NavLink>
             </IconButton>
-            <NavLink to="/devices" className={classes.menuLink}>Devices</NavLink>
+            
             <NavLink to="/accounts" className= {classes.menuLink}>Accounts</NavLink>
+            <NavLink to="/devices" className={classes.menuLink}>Devices</NavLink>
             {/* <Button color="inherit">Login</Button> */}
           </Toolbar>
         </AppBar>
         
-        <Route path="/devices" component={Devices} />
-        <Route path="/accounts" component={Accounts} />
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/devices" exact  component={Devices} />
+          <Route path="/accounts" exact  component={Accounts} />
+        </Switch>
       </div>
     </Router> 
   );
@@ -58,7 +64,5 @@ function Header(props) {
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-
-
 
 export default withStyles(styles)(Header);
