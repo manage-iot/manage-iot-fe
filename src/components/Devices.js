@@ -1,12 +1,11 @@
 import React from 'react';
 
-class Devices extends React.Component {
-  render() {
-    return (
-      <div className="content">Devices</div>
-    );
-  }
+function Devices() {
+  return (
+    <div className="content">
+      <h1>Devices</h1>
+    </div>
+  );
 }
-
 
 export default Devices;

@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Accounts() {
+function Accounts() {
   const classes = useStyles();
 
   const [accounts] = useState([{
@@ -53,3 +53,5 @@ export default function Accounts() {
     </div>
   );
 }
+
+export default Accounts

@@ -1,18 +1,18 @@
 import React from 'react';
-import Accounts from './Accounts';
-import Devices from './Devices';
-import Home from './Home';
-import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+
+import { BrowserRouter as Router, Route, NavLink, Redirect } from "react-router-dom";
 import { Switch } from 'react-router';
 
 import AppBar from '@material-ui/core/AppBar';
+import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
 
-const styles = {
+import Accounts from './Accounts';
+import Devices from './Devices';
+
+const useStyles = makeStyles({
   root: {
     flexGrow: 1,
   },
@@ -31,10 +31,10 @@ const styles = {
   active: {
     color: 'red'
   }
-};
+});
 
 function Header(props) {
-  const { classes } = props;
+  const classes = useStyles();
 
   return (
     <Router>
@@ -51,7 +51,7 @@ function Header(props) {
         </AppBar>
         
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Redirect exact from="/" to="accounts" />
           <Route path="/devices" exact  component={Devices} />
           <Route path="/accounts" exact  component={Accounts} />
         </Switch>
@@ -60,8 +60,4 @@ function Header(props) {
   );
 }
 
-Header.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Header);
+export default Header;
