@@ -47,7 +47,6 @@ function Header(props) {
             
             <NavLink to="/accounts" className= {classes.menuLink}>Accounts</NavLink>
             <NavLink to="/devices" className={classes.menuLink}>Devices</NavLink>
-            {/* <Button color="inherit">Login</Button> */}
           </Toolbar>
         </AppBar>
         

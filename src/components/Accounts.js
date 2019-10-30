@@ -1,7 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState }  from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -9,10 +8,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper'
 
-const styles = theme => ({
+const useStyles = makeStyles({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
   },
   table: {
@@ -20,52 +18,38 @@ const styles = theme => ({
   },
 });
 
-class Accounts extends React.Component {
+export default function Accounts() {
+  const classes = useStyles();
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      accounts: [{
-        id: 'Id1',
-        name: 'Name1'
-      }]
-    };
-    this.classes = props.classes;
-  }
+  const [accounts] = useState([{
+    id: 'Id1',
+    name: 'Name1'
+  }]);
+  
+  return (
+    <div className="content">
+      <h1>Accounts</h1>
 
-  render() {
-    return (
-      <div className="content">
-        <h1>Accounts</h1>
-
-        <Paper className={this.classes.root}>
-          <Table className={this.classes.table}>
-            <TableHead>
-              <TableRow>
-                <TableCell>Id</TableCell>
-                <TableCell >Name</TableCell>
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Id</TableCell>
+              <TableCell >Name</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {accounts.map(row => (
+              <TableRow key={row.id}>
+                <TableCell component="th" scope="row" >
+                  {row.id}
+                </TableCell>
+                <TableCell>{row.name}</TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.state.accounts.map(row => (
-                <TableRow key={row.id}>
-                  <TableCell component="th" scope="row" >
-                    {row.id}
-                  </TableCell>
-                  <TableCell>{row.name}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Paper>
-      </div>
-    );
-  }
+            ))}
+          </TableBody>
+        </Table>
+      </Paper>
+    </div>
+  );
 }
-
-
-Accounts.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Accounts);
